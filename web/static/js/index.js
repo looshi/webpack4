@@ -63,14 +63,15 @@ A(`
 // Fonts
 A(`
 <div class="font">
-  <h2>Fonts</h2>
+  <h2>Fonts via file-loader</h2>
   This should be Sailec font.
 </div>
 `);
 
 // Images
 A(`
-<h2>Images</h2>
+<h2>Images via file-loader</h2>
+<p>Images loaded via \`import\` statements.</p>
 This should be a painting of Salukis:
 <div>path = ${salukis}</div>
 <img src=${salukis} />
@@ -83,4 +84,12 @@ A(`
 <p>Automatically loads modules instead of having to import or require them.</p>
 Is working?  ${React !== undefined}
 React: ${React}
+`);
+
+A(`
+<h2><a href="https://webpack.js.org/plugins/copy-webpack-plugin/">CopyWebpackPlugin</a></h2>
+<p>Images loaded via paths to static assets.</p>
+<p>Copies files from one directory to another directory upon build.</p>
+This should be a painting of some horses and dogs:<br/>
+<img src="priv/static/images/borzois.jpeg" />
 `);

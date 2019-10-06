@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
   watch: true,
-  entry: ["./static/css/main.css", "./static/js/index.js"],
+  entry: ["./web/static/css/main.css", "./web/static/js/index.js"],
   output: { path: path.resolve(__dirname, "priv/static") },
 
   module: {
@@ -25,7 +26,7 @@ module.exports = {
           },
           "postcss-loader"
         ],
-        include: /static\/css/,
+        include: /web\/static\/css/,
         exclude: /src/
       },
       /*
@@ -51,7 +52,7 @@ module.exports = {
           },
           "postcss-loader"
         ],
-        include: /static\/js/
+        include: /web\/static\/js/
       },
 
       /*
@@ -107,19 +108,18 @@ module.exports = {
 
   /*
   Plugins
-  LoaderOptionsPlugin: was a migration helper from webpack 1.0 to 2.0
-  ProvidePlugin: automatically imports modules ( works as if they were global variables )
-  plugins: [
-    new webpack.LoaderOptionsPlugin({ debug: true }),
-    new webpack.ProvidePlugin(require('./web/static/js/lib/shims')),
-    new webpack.HotModuleReplacementPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, 'web/static/assets'),
-        to: path.join(__dirname, 'priv/static'),
-      },
-    ]),
-  ],
+    LoaderOptionsPlugin: was a migration helper from webpack 1.0 to 2.0, no longer needed ?
+    ProvidePlugin: automatically imports modules ( works as if they were global variables )
+    CopyPlugin: no longer in webpack object, in 2.0 was: webpack.CopyWebpackPlugin
+    HotModuleReplacementPlugin:
   */
-  plugins: [new webpack.ProvidePlugin(require("./static/js/lib/shims"))]
+  plugins: [
+    new webpack.ProvidePlugin(require("./web/static/js/lib/shims")),
+    new CopyPlugin([
+      {
+        from: path.join(__dirname, "web/static/assets"),
+        to: path.join(__dirname, "priv/static")
+      }
+    ])
+  ]
 };
