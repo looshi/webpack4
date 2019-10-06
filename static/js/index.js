@@ -2,10 +2,11 @@ import greetings from "./alert.js";
 import style from "./style.css";
 import { animals } from "./animals";
 import { namedAnimals } from "./animals";
+import salukis from "../assets/images/salukis.jpeg";
 
 function A(htmlString) {
   const div = document.createElement("div");
-  div.innerHTML = htmlString;
+  div.innerHTML = `<section>${htmlString}</section>`;
   document.body.appendChild(div);
 }
 
@@ -49,4 +50,20 @@ A(`
 <div>
   Is working ? ${JSON.stringify(namedAnimals)}
 </div>
+`);
+
+// Fonts
+A(`
+<div class="font">
+  <h2>Fonts</h2>
+  This should be Sailec font.
+</div>
+`);
+
+// Images
+A(`
+<h2>Images</h2>
+This should be a painting of Salukis:
+<div>path = ${salukis}</div>
+<img src=${salukis} />
 `);

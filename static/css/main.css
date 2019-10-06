@@ -1,5 +1,15 @@
-@value myblue from './colors.css';
+@import "fonts.css";
+.font {
+  font-family: "Sailec";
+}
 
+@value myblue from './colors.css';
 .blue-border {
   border: 8px solid myblue;
+}
+
+section {
+  border: 1px solid #ccc;
+  padding: 4px;
+  margin: 12px;
 }

@@ -73,12 +73,32 @@ module.exports = {
         }
       },
 
-      // Images
+      /*
+      Fonts
+      */
       {
-        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
-        loader: "url-loader",
+        test: /\.(eot|ttf|woff|woff2)$/,
+        exclude: /node_modules/,
+        loader: "file-loader",
         options: {
-          limit: 8192
+          name: "[name].[ext]",
+          outputPath: "fonts/",
+          // const publicPath = "http://localhost:4001/"; // via express server
+          publicPath: "./dist/fonts" // file system path
+        }
+      },
+
+      /*
+      Images
+      */
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        exclude: /node_modules/,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "images/",
+          publicPath: "./dist/images"
         }
       }
     ]
