@@ -131,13 +131,13 @@ module.exports = {
   */
   plugins: [
     new webpack.ProvidePlugin(require("./web/static/js/lib/shims")),
+    new webpack.HotModuleReplacementPlugin(), // Adds app.js to express server in-memory filesystem.
+    // new webpack.NoEmitOnErrorsPlugin()
     new CopyPlugin([
       {
         from: path.join(__dirname, "web/static/assets"),
         to: path.join(__dirname, "priv/static")
       }
-    ]),
-    new webpack.HotModuleReplacementPlugin() // Adds app.js to express server memory.
-    // new webpack.NoEmitOnErrorsPlugin()
+    ])
   ]
 };
