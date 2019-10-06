@@ -1,5 +1,5 @@
 # App artifacts
-/dist
+/priv/static
 /npm-debug.log*
 /node_modules
 /notes.txt

@@ -10,6 +10,14 @@ function A(htmlString) {
   document.body.appendChild(div);
 }
 
+function H(htmlString) {
+  const h1 = document.createElement("h1");
+  h1.innerHTML = htmlString;
+  document.body.appendChild(h1);
+}
+
+H(`Loaders`);
+
 // CSS
 A(`
 <h2>CSS</h2>
@@ -66,4 +74,13 @@ A(`
 This should be a painting of Salukis:
 <div>path = ${salukis}</div>
 <img src=${salukis} />
+`);
+
+H(`Plugins`);
+
+A(`
+<h2><a href="https://webpack.js.org/plugins/provide-plugin/">ProvidePlugin</a></h2>
+<p>Automatically loads modules instead of having to import or require them.</p>
+Is working?  ${React !== undefined}
+React: ${React}
 `);

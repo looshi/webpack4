@@ -1,10 +1,11 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
   watch: true,
   entry: ["./static/css/main.css", "./static/js/index.js"],
-  // output: "./dist/main.js",
+  output: { path: path.resolve(__dirname, "priv/static") },
 
   module: {
     rules: [
@@ -84,7 +85,7 @@ module.exports = {
           name: "[name].[ext]",
           outputPath: "fonts/",
           // const publicPath = "http://localhost:4001/"; // via express server
-          publicPath: "./dist/fonts" // file system path
+          publicPath: "./priv/static/fonts" // file system path
         }
       },
 
@@ -98,9 +99,27 @@ module.exports = {
         options: {
           name: "[name].[ext]",
           outputPath: "images/",
-          publicPath: "./dist/images"
+          publicPath: "./priv/static/images"
         }
       }
     ]
-  }
+  },
+
+  /*
+  Plugins
+  LoaderOptionsPlugin: was a migration helper from webpack 1.0 to 2.0
+  ProvidePlugin: automatically imports modules ( works as if they were global variables )
+  plugins: [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
+    new webpack.ProvidePlugin(require('./web/static/js/lib/shims')),
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, 'web/static/assets'),
+        to: path.join(__dirname, 'priv/static'),
+      },
+    ]),
+  ],
+  */
+  plugins: [new webpack.ProvidePlugin(require("./static/js/lib/shims"))]
 };
