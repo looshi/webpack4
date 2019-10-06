@@ -1,4 +1,3 @@
-import greetings from "./alert.js";
 import style from "./style.css";
 import { animals } from "./animals";
 import { namedAnimals } from "./animals";

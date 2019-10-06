@@ -1,12 +1,29 @@
 const path = require("path");
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
+const publicPath = "http://localhost:4001/"; // via express server
 
 module.exports = {
   mode: "development",
   watch: true,
-  entry: ["./web/static/css/main.css", "./web/static/js/index.js"],
-  output: { path: path.resolve(__dirname, "priv/static") },
+  entry: [
+    "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000",
+    "./web/static/css/main.css",
+    "./web/static/js/index.js"
+  ],
+  // output: { path: path.resolve(__dirname, "priv/static"), publicPath },
+
+  // output: {
+  //   filename: "app.js",
+  //   path: "/priv/static/js",
+  //   publicPath: "http://localhost:4001/"
+  // },
+
+  output: {
+    // path: path.resolve(__dirname, "/priv/static/js"),
+    filename: "app.js",
+    publicPath: "/"
+  },
 
   module: {
     rules: [
@@ -85,8 +102,7 @@ module.exports = {
         options: {
           name: "[name].[ext]",
           outputPath: "fonts/",
-          // const publicPath = "http://localhost:4001/"; // via express server
-          publicPath: "./priv/static/fonts" // file system path
+          publicPath: `${publicPath}/fonts`
         }
       },
 
@@ -100,7 +116,7 @@ module.exports = {
         options: {
           name: "[name].[ext]",
           outputPath: "images/",
-          publicPath: "./priv/static/images"
+          publicPath: `${publicPath}/images`
         }
       }
     ]
@@ -120,6 +136,8 @@ module.exports = {
         from: path.join(__dirname, "web/static/assets"),
         to: path.join(__dirname, "priv/static")
       }
-    ])
+    ]),
+    new webpack.HotModuleReplacementPlugin() // Adds app.js to express server memory.
+    // new webpack.NoEmitOnErrorsPlugin()
   ]
 };

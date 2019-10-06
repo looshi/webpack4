@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack"
+    "server": "node dev-server.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +19,14 @@
     "@babel/preset-env": "^7.6.2",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
+    "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "postcss-loader": "^3.0.0",
     "react": "^16.10.2",
     "style-loader": "^1.0.0",
-    "webpack": "^4.41.0"
+    "webpack": "^4.41.0",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.4",
