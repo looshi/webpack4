@@ -1,4 +1,4 @@
-@value myblue from '../css/colors.css';
+@value myblue from '../../static/css/colors.css';
 
 .dog-border {
   padding: 8px;
