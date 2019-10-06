@@ -1,0 +1,5 @@
+@value myblue from './colors.css';
+
+.blue-border {
+  border: 8px solid myblue;
+}

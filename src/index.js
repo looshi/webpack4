@@ -1,21 +1,25 @@
 import greetings from "./alert.js";
 import style from "./style.css";
 
-const output = greetings("Affirmative", "Dave");
+function A(htmlString) {
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  document.body.appendChild(div);
+}
 
-document.body.prepend(output);
-document.body.prepend("output:");
+// CSS
+A(`
+<h2>CSS</h2>
+<p class='blue-border'>
+This should have a blue border.
+</p>
+`);
 
-document.body.prepend(JSON.stringify(style));
-document.body.prepend("styles:");
-
-const div = document.createElement("div");
-div.innerHTML = `
-<button class=${style["dog-border"]}>
-Click Me
-</button>
-<img src='https://www.petful.com/wp-content/uploads/2013/07/Borzoi-1.jpg'/>
-`;
-
-document.body.appendChild(div);
-document.body.appendChild("html:");
+// CSS Modules
+A(`
+<h2>CSS Modules</h2>
+<p class=${style["dog-border"]}>
+This should have an orange border.
+<span class=${style["blue-text"]}>This text should be blue.</span>
+</p>
+`);
