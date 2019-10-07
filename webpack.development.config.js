@@ -157,11 +157,12 @@ module.exports = {
     new webpack.ProvidePlugin(require("./web/static/js/lib/shims")),
     new webpack.HotModuleReplacementPlugin(), // Adds app.js to express server in-memory filesystem.
     // new webpack.NoEmitOnErrorsPlugin()
-    // this seems redundant to the file-loaders:
+    // this puts the fonts available as static assets which is unecessary:
+    // the way to fix it would be not have fonts stored in web/static/assets,
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, "web/static/assets"),
-        to: path.join(__dirname, "priv/static")
+        from: "web/static/assets",
+        to: "priv/static"
       }
     ])
   ]

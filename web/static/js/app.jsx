@@ -1,7 +1,7 @@
 import style from "./style.css";
 import { animals } from "./animals";
 import { namedAnimals } from "./animals";
-import salukis from "../assets/images/salukis.jpeg";
+import salukis from "./images/salukis.jpeg";
 import { render } from "react-dom";
 import App from "./react-components";
 
@@ -94,9 +94,7 @@ React: ${React}
 `);
 
 A(`
-<h2><a href="https://webpack.js.org/plugins/copy-webpack-plugin/">CopyWebpackPlugin</a></h2>
-<p>Images loaded via paths to static assets.</p>
-<p>Copies files from one directory to another directory upon build.</p>
+<h2>"Static" Images via CopyWebpackPlugin</h2>
 This should be a painting of some horses and dogs:<br/>
 <img src="priv/static/images/borzois.jpeg" />
 `);
