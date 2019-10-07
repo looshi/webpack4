@@ -96,7 +96,7 @@ A(`
 <p>Images loaded via paths to static assets.</p>
 <p>Copies files from one directory to another directory upon build.</p>
 This should be a painting of some horses and dogs:<br/>
-<img src="/images/borzois.jpeg" />
+<img src="priv/static/images/borzois.jpeg" />
 `);
 
 // React

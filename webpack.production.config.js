@@ -52,7 +52,11 @@ module.exports = {
               hmr: false
             }
           },
-          "css-loader"
+          {
+            loader: "css-loader",
+            options: { importLoaders: 1 }
+          },
+          "postcss-loader"
         ],
         include: /web\/static\/css/
       },
@@ -124,7 +128,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({ filename: "css/app.css" }),
-    // This overwrites the fonts, and any image assets.
+    // This overwrites the image assets.
     new CopyWebpackPlugin([
       { from: "./web/static/assets/images", to: "./images" }
     ]),
