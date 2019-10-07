@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const publicPath = "http://localhost:4001/"; // via express server
 
 module.exports = {
   mode: "development",
+  devtool: "cheap-eval-source-map",
   watch: true,
   entry: [
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000",
@@ -131,7 +132,7 @@ module.exports = {
     new webpack.ProvidePlugin(require("./web/static/js/lib/shims")),
     new webpack.HotModuleReplacementPlugin(), // Adds app.js to express server in-memory filesystem.
     // new webpack.NoEmitOnErrorsPlugin()
-    new CopyPlugin([
+    new CopyWebpackPlugin([
       {
         from: path.join(__dirname, "web/static/assets"),
         to: path.join(__dirname, "priv/static")
