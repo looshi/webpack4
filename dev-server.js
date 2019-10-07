@@ -29,7 +29,7 @@ app.use(express.static(assetPath));
 // index.html
 // This is usually served out by phoenix server.
 app.get("/", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "./index.html"))
+  res.sendFile(path.resolve(__dirname, "./index.development.html"))
 );
 
 app.listen(4001, "localhost", function(err) {

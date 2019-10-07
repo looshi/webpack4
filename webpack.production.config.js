@@ -6,12 +6,13 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   mode: "production",
+
   devtool: "source-map",
 
   entry: [
     "@babel/polyfill",
-    "./web/static/css/main.css", // d:   "./web/static/css/app.css",
-    "./web/static/js/index.js" // d:   "./web/static/js/app.jsx"
+    "./web/static/css/app.css",
+    "./web/static/js/app.jsx"
   ],
 
   output: {
@@ -20,12 +21,12 @@ module.exports = {
   },
 
   resolve: {
-    // modules: [
-    //   path.resolve(__dirname),
-    //   path.resolve("./web/static/js"),
-    //   path.resolve("./web/static/css"),
-    //   "node_modules"
-    // ],
+    modules: [
+      path.resolve(__dirname),
+      path.resolve("./web/static/js"),
+      path.resolve("./web/static/css"),
+      "node_modules"
+    ],
     extensions: [".js", ".jsx"]
   },
 
@@ -101,9 +102,9 @@ module.exports = {
         exclude: /node_modules/,
         loader: "file-loader",
         options: {
-          name: "[folder]_[name].[ext]",
+          name: "[name].[ext]",
           outputPath: "fonts/",
-          publicPath: "/"
+          publicPath: "/priv/static/fonts" // why is different from app ?
         }
       },
 
@@ -113,21 +114,24 @@ module.exports = {
         exclude: /node_modules/,
         loader: "file-loader",
         options: {
-          name: "[folder]_[name].[ext]",
+          name: "[name].[ext]",
           outputPath: "images/",
-          publicPath: "/"
+          publicPath: "/priv/static/images"
         }
       }
     ]
   },
 
   plugins: [
-    new MiniCssExtractPlugin(),
-    new CopyWebpackPlugin([{ from: "./web/static/assets" }]),
+    new MiniCssExtractPlugin({ filename: "css/app.css" }),
+    // This overwrites the fonts, and any image assets.
+    new CopyWebpackPlugin([
+      { from: "./web/static/assets/images", to: "./images" }
+    ]),
     new webpack.ProvidePlugin(require("./web/static/js/lib/shims"))
   ],
 
   optimization: {
-    minimizer: [new UglifyJsPlugin()]
+    minimizer: [new UglifyJsPlugin({ sourceMap: true })]
   }
 };
