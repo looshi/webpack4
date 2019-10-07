@@ -2,6 +2,8 @@ import style from "./style.css";
 import { animals } from "./animals";
 import { namedAnimals } from "./animals";
 import salukis from "../assets/images/salukis.jpeg";
+import { render } from "react-dom";
+import App from "./react-components";
 
 function A(htmlString) {
   const div = document.createElement("div");
@@ -92,3 +94,8 @@ A(`
 This should be a painting of some horses and dogs:<br/>
 <img src="/images/borzois.jpeg" />
 `);
+
+// React
+
+const appRoot = document.getElementById("root");
+render(<App message="React Is Working" />, appRoot);

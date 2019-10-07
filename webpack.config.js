@@ -11,18 +11,16 @@ module.exports = {
     "./web/static/css/main.css",
     "./web/static/js/index.js"
   ],
-  // output: { path: path.resolve(__dirname, "priv/static"), publicPath },
-
-  // output: {
-  //   filename: "app.js",
-  //   path: "/priv/static/js",
-  //   publicPath: "http://localhost:4001/"
-  // },
 
   output: {
     // path: path.resolve(__dirname, "/priv/static/js"),
     filename: "app.js",
     publicPath: "/"
+  },
+
+  resolve: {
+    // index.jsx importing path/index.jsx as "import a from 'path'" does not work without this
+    extensions: [".js", ".jsx"]
   },
 
   module: {
@@ -76,13 +74,13 @@ module.exports = {
       JS, JSX
       */
       {
-        test: /\.jsx?/, //.js or .jsx files
+        test: /\.jsx?$/, //.js or .jsx files
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
           options: {
             // @babel/preset-env options are in .browserslistrc
-            presets: ["@babel/preset-env"],
+            presets: ["@babel/preset-env", "@babel/preset-react"],
             plugins: [
               "@babel/plugin-proposal-class-properties",
               "@babel/plugin-proposal-export-default-from",
