@@ -32,7 +32,9 @@ A(`
 <h2>CSS Modules</h2>
 <div class=${style.dogBorder}>
   This should have an orange border.
-  <p class=${style.blueText}>This text should be blue.</p>
+  <p class=${
+    style.blueText
+  }>This text should be blue and if you inspect me check autoprefixer is working on this drop shadow.</p>
   <p>The generated classname is ${style["blue-text"]}.</p>
   <p>style.blueText available ?  ${style.blueText !== undefined}.</p>
   <p>style["blue-text"] still available ?  ${style["blue-text"] !==
