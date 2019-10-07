@@ -1,31 +1,53 @@
 const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const publicPath = "http://localhost:4001/"; // via express server
+
+const hmrEntry =
+  "webpack-hot-middleware/client?path=http://localhost:4001/__webpack_hmr";
+const publicPath = "http://localhost:4001/";
 
 module.exports = {
   mode: "development",
+
   devtool: "cheap-eval-source-map",
+
   watch: true,
+
   entry: [
-    "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000",
-    "./web/static/css/main.css",
-    "./web/static/js/index.js"
+    hmrEntry,
+    "@babel/polyfill",
+    "react-hot-loader/patch",
+    "./web/static/css/app.css",
+    "./web/static/js/app.jsx"
   ],
 
   output: {
-    // path: path.resolve(__dirname, "/priv/static/js"),
-    filename: "app.js",
-    publicPath: "/"
+    publicPath,
+    path: path.resolve("./priv/static"),
+    filename: "js/app.js"
   },
 
   resolve: {
+    alias: { "react-dom": "@hot-loader/react-dom" },
+    modules: [
+      path.resolve(__dirname),
+      path.resolve("./web/static/js"),
+      path.resolve("./web/static/css"),
+      "node_modules"
+    ],
     // index.jsx importing path/index.jsx as "import a from 'path'" does not work without this
     extensions: [".js", ".jsx"]
   },
 
   module: {
     rules: [
+      // Third-party Styles
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+        include: /node_modules/
+      },
+
       /*
       CSS
         postcss-loader options are in postcss.config.js
@@ -42,8 +64,7 @@ module.exports = {
           },
           "postcss-loader"
         ],
-        include: /web\/static\/css/,
-        exclude: /src/
+        include: /web\/static\/css/
       },
       /*
       CSS Modules
@@ -61,8 +82,7 @@ module.exports = {
               localsConvention: "camelCase",
               modules: {
                 mode: "local",
-                localIdentName: "[path][name]__[local]",
-                context: path.resolve(__dirname, "src")
+                localIdentName: "[path][name]_[local]"
               }
             }
           },
@@ -75,17 +95,22 @@ module.exports = {
       JS, JSX
       */
       {
-        test: /\.jsx?$/, //.js or .jsx files
-        exclude: /(node_modules|bower_components)/,
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
             // @babel/preset-env options are in .browserslistrc
             presets: ["@babel/preset-env", "@babel/preset-react"],
             plugins: [
+              "react-hot-loader/babel",
               "@babel/plugin-proposal-class-properties",
               "@babel/plugin-proposal-export-default-from",
-              "@babel/plugin-proposal-export-namespace-from"
+              "@babel/plugin-proposal-export-namespace-from",
+              [
+                "@lingui/babel-plugin-transform-react",
+                { importedNames: [["Trans", "T"]] }
+              ]
             ]
           }
         }
@@ -99,7 +124,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: "file-loader",
         options: {
-          name: "[name].[ext]",
+          name: "[name].[ext]", // d: app "[path][name].[ext]", why ... WHY ?
           outputPath: "fonts/",
           publicPath: `${publicPath}/fonts`
         }
@@ -132,6 +157,7 @@ module.exports = {
     new webpack.ProvidePlugin(require("./web/static/js/lib/shims")),
     new webpack.HotModuleReplacementPlugin(), // Adds app.js to express server in-memory filesystem.
     // new webpack.NoEmitOnErrorsPlugin()
+    // this seems redundant to the file-loaders:
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, "web/static/assets"),

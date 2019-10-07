@@ -23,6 +23,7 @@ app.use(
 // static assets
 // usually served out by phoenix server?
 const assetPath = path.resolve(__dirname, "./priv/static");
+console.log("assetPath", assetPath);
 app.use(express.static(assetPath));
 
 // index.html

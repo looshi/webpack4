@@ -67,6 +67,10 @@ A(`
   <h2>Fonts via file-loader</h2>
   This should be Sailec font.
 </div>
+<div class="${style.cssModuleFont}">
+  <h2>Fonts via css modules' loaders.</h2>
+  This should be Sailec font.
+</div>
 `);
 
 // Images
